@@ -1,0 +1,40 @@
+
+<head>
+    <title> Stock Information </title>
+</head>
+
+<h3>Stock information about 25 selected listed stocks</h3>
+<H4>The information provided below are updated as at {{latest_date}}</H4>
+<body>
+
+
+<p>
+    <marquee style="background-color: #eee; border: 1px solid #ccc">
+        {{ticker}}
+    </marquee>
+</p>
+
+
+
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>SYMBOL</th>
+        <th>PRICE ($)</th>
+        <th>CHANGE $(%)</th>
+        <th>TIME CLOSED</th>
+    </tr>
+    {% for i in tabular_stocks %}
+    <tr>
+
+        <td>{{i.fullname}}</a></td>
+        <td>{{i.symbol}}</a></td>
+        <td>{{i.price}}</a></td>
+        <td>{{i.change}}</a></td>
+        <td>{{i.time}}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p>The stock information were scrapped from Yahoo finance.</p>
+</body>
