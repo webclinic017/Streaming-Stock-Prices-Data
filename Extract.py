@@ -97,3 +97,14 @@ print(b)
 print(a)
 
 
+sample = [{'Name':'Tayo','Class':'primary 2'}, {'Name':'Shola','Class':'primary 2'}, {'Name':'John','Class':'primary 2'}]
+
+int = []
+full = ''
+for x in sample:
+    int.append(" | " + x['Name'] + " " + x['Class'])
+for y in int:
+    full += y
+
+
+

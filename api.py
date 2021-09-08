@@ -53,7 +53,7 @@ def stocks_all():
 def tabular():
     tabular_stocks = stock1.find(
         filter=latest_date,
-        projection={"fullname": 1,"symbol": 1, "price": 1, "change": 1, "time": 1,  "_id": 0},  # fields that will be displayed
+        projection={"fullname": 1, "symbol": 1, "price": 1, "change": 1, "time": 1,  "_id": 0},  # fields to be displayed
         sort=[("fullname", 1)]  # sort by track views, descending order
     )
 
@@ -63,7 +63,14 @@ def tabular():
         sort=[("fullname", 1)]  # sort by track views, descending order
     )
 
-    return render_template('table.html', tabular_stocks=tabular_stocks, latest_date=ldts, ticker=list(ticker))
+    int_t = []
+    full_t = ''
+    for x in ticker:
+            int_t.append(" | " + x['symbol'] + "  " + x['price'] + " " + x['change'])
+    for values in int_t:
+        full_t += values
+
+    return render_template('table.html', tabular_stocks=tabular_stocks, latest_date=ldts, ticker=full_t)
 
 
 app.run()
