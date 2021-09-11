@@ -57,7 +57,7 @@ db = client.Stocks
 stock1 = db.Stockdata
 
 # insert data into database
-# stock1.insert_many(stockdata)
+stock1.insert_many(stockdata)
 
 latest_stocks = stock1.find(
         filter={"date extracted": today.strftime("%d/%m/%Y")},
