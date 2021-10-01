@@ -6,11 +6,14 @@ from datetime import date
 
 today = date.today()
 
+
 # Get a list of the symbols of the most active stocks
 stockstomonitor = ['NUG.V', 'SU.TO', 'HALO.NE', 'C.V', 'SCRN.CN', 'GWO.TO', 'NCU.TO', 'SLF.TO', 'TD.TO', 'EPY.CN',
                    'CVE.TO', 'ARX.TO', 'TKX.V', 'BNS.TO', 'VXTR.V', 'GHG.CN', 'HUT.TO', 'CNQ.TO', 'BTO.TO', 'ENB.TO',
                    'BB.TO', 'BTE.TO', 'GBLC.CN', 'ABX.TO', 'CM.TO']
+
 stockdata = []  # define empty list to collect stock data
+
 
 
 def stock_extract(symbol):   # define function to extract stock data
