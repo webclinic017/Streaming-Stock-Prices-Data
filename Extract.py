@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from datetime import date
 
 
+
 today = date.today()
 
 
@@ -16,7 +17,7 @@ stockdata = []  # define empty list to collect stock data
 
 
 
-def stock_extract(symbol):   # define function to extract stock data
+def stock_extract(symbol):  # define function to extract stock data
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'}
     url = f'https://ca.finance.yahoo.com/quote/{symbol}'  # url template to extract data
@@ -36,6 +37,7 @@ def stock_extract(symbol):   # define function to extract stock data
 
 
 def iterator(list):  # define a function to iterate through the list. we need this to build DAGs later.
+
     for i in list:
         stockdata.append(stock_extract(i))
         print('Extracting: ', i)
@@ -50,8 +52,7 @@ import pymongo
 from pymongo import MongoClient
 
 # create client connection
-client = MongoClient('mongodb+srv://dbuser:'
-                     'password1234@cluster0.gq30y.mongodb.net/Stocks?retryWrites=true&w=majority')
+client = MongoClient("mongodb+srv://dbuser:password1234@cluster0.gq30y.mongodb.net/Stocks?retryWrites=true&w=majority")
 
 # Assign database
 db = client.Stocks
