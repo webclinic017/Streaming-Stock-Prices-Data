@@ -75,5 +75,7 @@ def tabular():
     return render_template('table.html', tabular_stocks=tabular_stocks, latest_date=ldts, ticker=full_t)
 
 
-app.run()
+if __name__ == "__main__":
+    app.run()
+
 
