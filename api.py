@@ -3,12 +3,15 @@ from flask import request, jsonify, render_template
 from pymongo import MongoClient
 import datetime
 
+app = flask.Flask(__name__)
 
 ENV = "PROD"
 if ENV == "DEV":
+    app.config["DEBUG"] = True
     client = MongoClient('mongodb+srv://dbuser:password1234@cluster0.gq30y.mongodb.net/Stocks?retryWrites=true&w=majority')
 else:
-    client = MongoClient(mongo_URI)
+    app.config["DEBUG"] = False
+    client = MongoClient('mongodb+srv://dbuser:password1234@cluster0.gq30y.mongodb.net/Stocks?retryWrites=true&w=majority')
 
 # Connect to database, assign database and collection
 db = client.Stocks
@@ -33,11 +36,6 @@ lds=latest_date['date extracted']  # extract date from dictionary
 
 ldo=datetime.datetime.strptime(lds, "%d/%m/%Y").date()  # convert to date object
 ldts=ldo.strftime("%A %B %d, %Y")
-
-
-
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True  # starts debugger, helps refresh the webpage when code changes.
 
 @app.route('/', methods=['GET'])  # Routing syntax to map URL '/' to create the landing page
 def home():
