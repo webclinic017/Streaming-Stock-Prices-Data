@@ -4,9 +4,13 @@ from pymongo import MongoClient
 import datetime
 
 
+ENV = "PROD"
+if ENV == "DEV":
+    client = MongoClient('mongodb+srv://dbuser:password1234@cluster0.gq30y.mongodb.net/Stocks?retryWrites=true&w=majority')
+else:
+    client = MongoClient(mongo_URI)
+
 # Connect to database, assign database and collection
-conn_string = 'mongodb+srv://dbuser:password1234@cluster0.gq30y.mongodb.net/Stocks?retryWrites=true&w=majority'
-client = MongoClient(conn_string)
 db = client.Stocks
 stock1 = db.Stockdata
 
