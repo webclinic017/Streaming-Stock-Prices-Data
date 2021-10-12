@@ -5,7 +5,7 @@ import datetime
 
 app = flask.Flask(__name__)
 
-ENV = "PROD"
+ENV = "DEV"
 if ENV == "DEV":
     app.config["DEBUG"] = True
     client = MongoClient('mongodb+srv://dbuser:password1234@cluster0.gq30y.mongodb.net/Stocks?retryWrites=true&w=majority')
@@ -42,7 +42,7 @@ def home():
     return '''<h1> Stock streaming web app</h1>
             <p>A sample webapp to display select stock information from the most active 25 sites</p>'''
 
-@app.route('/api/stocks', methods=['GET'])  # Return all of the latest stocks (scrapped today)
+@app.route('/api', methods=['GET'])  # Return all of the latest stocks (scrapped today) to an api
 def stocks_all():
     latest_stocks = stock1.find(
         filter=latest_date,
@@ -51,7 +51,7 @@ def stocks_all():
     )
     return jsonify(list(latest_stocks))
 
-@app.route('/table/stocks', methods=['GET'])  # Return tabular data and ticker
+@app.route('/table', methods=['GET'])  # Return tabular data and ticker
 def tabular():
     tabular_stocks = stock1.find(
         filter=latest_date,
@@ -65,17 +65,18 @@ def tabular():
         sort=[("fullname", 1)]  # sort by track views, descending order
     )
 
-    int_t = []
-    full_t = ''
+    int_t = []  # create empty list for the intermediate ticker
+    full_t = ''  # create empty string for final ticker
     for x in ticker:
-            int_t.append(" | " + x['symbol'] + "  " + x['price'] + " " + x['change'])
+            int_t.append(" | " + x['symbol'] +
+                         "  " + x['price'] + " " + x['change'])  # create ticker to show stock symbol, change and price.
     for values in int_t:
-        full_t += values
+        full_t += values  # collapse ticker into a full string
 
     return render_template('table.html', tabular_stocks=tabular_stocks, latest_date=ldts, ticker=full_t)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # I am not sure of what this does, but it enables Gunicorn run the app.
     app.run()
 
 

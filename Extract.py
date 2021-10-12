@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 from datetime import date
 
 
-
 today = date.today()
 
 
@@ -14,6 +13,7 @@ stockstomonitor = ['NUG.V', 'SU.TO', 'HALO.NE', 'C.V', 'SCRN.CN', 'GWO.TO', 'NCU
                    'BB.TO', 'BTE.TO', 'GBLC.CN', 'ABX.TO', 'CM.TO']
 
 stockdata = []  # define empty list to collect stock data
+
 
 
 
