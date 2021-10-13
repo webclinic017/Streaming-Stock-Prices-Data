@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Stock Streaming Web App</title>
+</head>
+<body>
+<h2>Stock Streaming Web Application</h2>
+<h3>Displays Stock Information about 25 Selected Stocks listed on the Toronto Stock Exchange</h3>
+
+To view the stock information being streamed, click the "Launch table" button here >>>>
+
+ <button onclick="window.location.href='http://streamingstocks.herokuapp.com/table';">Launch table</button>
+
+<h4>How it works:</h4>
+<p> This app displays the current closing stock information of 25 selected stocks.
+    If the stock market is still opened as at the time the app is run, the previous day's closing information will be displayed.
+</p>
+
+<p>
+    The information displayed includes the following:
+    <ol>
+    <li>The listed company's name</li>
+    <li>Stock symbol</li>
+    <li>Current closing price of the stock</li>
+    <li>Change in stock price from the previous day (in figures and percentage)</li>
+    <li>Last time within the day the stock price changed</li>
+    </ol>
+    Furthermore,the date at which the web page was last updated is displayed at the top.
+</p>
+
+To view the stock information being streamed, click the "Launch table" button here >>>>
+
+ <button onclick="window.location.href='http://streamingstocks.herokuapp.com/table';">Launch table</button>
+
+<p>To view or download the json format of the daily stock data being streamed, visit <a href= "http://streamingstocks.herokuapp.com/api">http://streamingstocks.herokuapp.com/api</a> </p>
+</body>
+</html>

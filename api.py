@@ -39,8 +39,7 @@ ldts=ldo.strftime("%A %B %d, %Y")
 
 @app.route('/', methods=['GET'])  # Routing syntax to map URL '/' to create the landing page
 def home():
-    return '''<h1> Stock streaming web app</h1>
-            <p>A sample webapp to display select stock information from the most active 25 sites</p>'''
+    return render_template('landing_page.html')
 
 @app.route('/api', methods=['GET'])  # Return all of the latest stocks (scrapped today) to an api
 def stocks_all():
