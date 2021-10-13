@@ -5,7 +5,7 @@ import datetime
 
 app = flask.Flask(__name__)
 
-ENV = "DEV"
+ENV = "PROD"
 if ENV == "DEV":
     app.config["DEBUG"] = True
     client = MongoClient('mongodb+srv://dbuser:password1234@cluster0.gq30y.mongodb.net/Stocks?retryWrites=true&w=majority')
