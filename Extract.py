@@ -2,7 +2,7 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import date
-
+from pymongo import MongoClient
 
 today = date.today()
 
@@ -18,7 +18,11 @@ stockdata = []  # define empty list to collect stock data
 
 
 def stock_extract(symbol):  # define function to extract stock data
-
+    """
+    Function extracts stock data from yahoo finance website.
+    :param symbol: Input stock symbol
+    :return: Returns a dictionary of stock information defined (Name, Symbol, Price, Change, time and date extracted)
+    """
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'}
     url = f'https://ca.finance.yahoo.com/quote/{symbol}'  # url template to extract data
 
@@ -26,10 +30,13 @@ def stock_extract(symbol):  # define function to extract stock data
 
     soup = BeautifulSoup(r.text, 'html.parser')
     stock = {
-        'fullname': soup.title.text.split('(')[0],
+        'fullname': soup.title.text.split('(')[0],  # Scraps the full name of the stock
         'symbol': symbol,
-        'price': soup.find('div', {'D(ib) Mend(20px)'}).find_all('span')[0].text,
-        'change': soup.find('div', {'D(ib) Mend(20px)'}).find_all('span')[1].text,
+        # Scrap the price of the stock
+        'price': soup.find('fin-streamer', {'Fw(b) Fz(36px) Mb(-4px) D(ib)'}).text,
+        # Scrap the change in stock price (amount and percentage)
+        'change': soup.find('fin-streamer', {'Fw(500) Pstart(8px) Fz(24px)'}).find_all('span')[0].text
+                  + " " + soup.find('div', {'D(ib) Mend(20px)'}).find_all('span')[1].text,
         'time': soup.find('div', {'id':'quote-market-notice'}).text,
         'date extracted': today.strftime("%d/%m/%Y")
         }   # Dictionary template to reference the data
@@ -37,7 +44,11 @@ def stock_extract(symbol):  # define function to extract stock data
 
 
 def iterator(list):  # define a function to iterate through the list. we need this to build DAGs later.
-
+    """
+    This function extracts stock information from a list of stock symbols
+    :param list: A list of stock symbols
+    :return: Dictionary list of stock information
+    """
     for i in list:
         stockdata.append(stock_extract(i))
         print('Extracting: ', i)
@@ -48,8 +59,6 @@ iterator(stockstomonitor)
 
 print(stockdata)
 
-import pymongo
-from pymongo import MongoClient
 
 # create client connection
 client = MongoClient("mongodb+srv://dbuser:password1234@cluster0.gq30y.mongodb.net/Stocks?retryWrites=true&w=majority")
@@ -110,5 +119,12 @@ for x in sample:
 for y in int:
     full += y
 
+# obtain most up-to-date extraction date
+sorted = stock1.find(
+    filter={},
+    projection={"_id": 0, "date extracted": 1},  # Select just the 'date extracted' field.
+    sort=[("date extracted", 1)],  # Sort in descending order by 'date extracted'
+) # limit to just one result
 
+list_latest_date = list(sorted)
 

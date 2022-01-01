@@ -34,7 +34,7 @@ for i in list_latest_date:
 # Convert latest date string to date object
 lds=latest_date['date extracted']  # extract date from dictionary
 
-ldo=datetime.datetime.strptime(lds, "%d/%m/%Y").date()  # convert to date object
+ldo=datetime.datetime.strptime(lds, "%Y-%m-%d").date()  # convert to date object
 ldts=ldo.strftime("%A %B %d, %Y")
 
 @app.route('/', methods=['GET'])  # Routing syntax to map URL '/' to create the landing page

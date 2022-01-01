@@ -1,5 +1,5 @@
 from airflow import DAG
-from airflow.operators.python_operators import PythonOperator
+from airflow.operators.python import PythonOperator
 import requests
 from bs4 import BeautifulSoup
 from datetime import date, datetime
@@ -34,7 +34,7 @@ def iterator(list):
             'price': soup.find('div', {'D(ib) Mend(20px)'}).find_all('span')[0].text,
             'change': soup.find('div', {'D(ib) Mend(20px)'}).find_all('span')[1].text,
             'time': soup.find('div', {'id': 'quote-market-notice'}).text,
-            'date extracted': today.strftime("%d/%m/%Y")
+            'date extracted': today.strftime("%Y-%m-%d")
         }  # Dictionary template to reference the data
         return stock
 
